@@ -110,5 +110,11 @@ A simple REST API for non-Go environments.
 - **POST /write**: `{"ptr_id": "...", "offset": 0, "data": "..."}`
 - **GET /read**: `?ptr_id=...&offset=0&length=1024`
 
+## Enterprise Solutions
+
+Looking for enterprise-grade distributed memory solutions, dedicated support, or custom integrations? 
+
+[**Join the Enterprise Waitlist**](https://binary.so/bC7zobC)
+
 ## License
 MIT License. See `LICENSE` for details.
