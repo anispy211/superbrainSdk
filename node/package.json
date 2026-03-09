@@ -1,5 +1,5 @@
 {
-  "name": "@superbrain/sdk",
+  "name": "superbrain-distributed-sdk",
   "version": "0.1.0",
   "description": "Premium High-Performance Distributed Memory SDK for AI Agents",
   "main": "index.js",

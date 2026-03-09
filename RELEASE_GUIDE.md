@@ -29,7 +29,7 @@ Publishing the TypeScript/JavaScript wrapper to the NPM registry.
     # You must be logged in to npm (npm login)
     npm publish --access public
     ```
-3.  **Usage**: Users run `npm install @superbrain/sdk`.
+3.  **Usage**: Users run `npm install superbrain-distributed-sdk`.
 
 ---
 
