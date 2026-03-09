@@ -21,9 +21,15 @@ With Superbrain, agents pass data **by pointer**.
 
 This decouples agents temporally and spatially, allowing for massive context sharing without the network tax.
 
+
+
 ---
 
+
+
 ## Why Distributed RAM Beats Traditional JSON/APIs
+
+
 
 Most developers today use JSON over REST or shared text files to move data between agents. For small strings, this is fine. For **Agent Intelligence**, it’s a performance killer.
 
@@ -33,7 +39,12 @@ When you send 10MB of agent context as JSON:
 2.  **Memory Bloat**: JSON serialization often doubles the memory footprint of the data.
 3.  **Latency**: The entire 10MB must be shoved through a narrow TCP socket before the destination agent can even begin "parsing" (the reverse CPU tax).
 
+
+
 ### Performance Metrics: Superbrain vs. Traditional
+
+
+
 | Method | Data Size | Latency (Local Net) | Throughput | Scalability |
 | :--- | :--- | :--- | :--- | :--- |
 | **JSON API** | 100MB | ~800ms - 1.2s | Low (Serialization Bound) | ❌ Poor |
