@@ -129,7 +129,14 @@ Building for AI means building for privacy. Superbrain Phase 2 introduces a **Se
 ---
 
 ## One SDK, Three Languages
-We believe AI agents should be language-agnostic. The Superbrain SDK provides a high-performance C-bridge that powers native libraries in **Go, Python, and TypeScript**.
+AI agents should be language-agnostic. The Superbrain SDK provides a high-performance C-bridge that powers native libraries in **Go, Python, and TypeScript**.
+
+### Installation
+- **Python**: `pip install superbrain-sdk`
+- **Node.js**: `npm install superbrain-distributed-sdk`
+- **Go**: `go get github.com/anispy211/superbrainSdk`
+
+---
 
 ### Usage: Go
 ```go
