@@ -7,8 +7,9 @@ Welcome to the Superbrain SDK! This guide explains how external developers and A
 2. [Shared Library Setup](#shared-library-setup)
 3. [Go SDK Usage](#go-sdk-usage)
 4. [Python SDK Usage](#python-sdk-usage)
-5. [Enterprise mTLS & E2EE](#enterprise-mtls--e2ee)
-
+5. [Node.js / TypeScript SDK Usage](#nodejs--typescript-sdk-usage)
+6. [Enterprise mTLS & E2EE](#enterprise-mtls--e2ee)
+7. [Architecture & Agent Flow Diagrams](#architecture--agent-flow-diagrams)
 ---
 
 ## Prerequisites
@@ -147,3 +148,115 @@ secure_client = Client("localhost:60050", encryption_key=key)
 > # Example: Reading a 100-byte encrypted payload
 > deciphered_bytes = secure_client.read(ptr_id, 0, 100 + 28)
 > ```
+
+---
+
+## Node.js / TypeScript SDK Usage
+
+The TypeScript wrapper uses `koffi` (a fast, modern FFI module for Node.js) to interact seamlessly with the CGO binary.
+
+### Installation
+```bash
+cd superbrainSdk/node
+npm install
+```
+
+### Basic Example
+```typescript
+import { Client } from './index';
+
+// 1. Initialize Client
+const client = new Client('localhost:50050');
+client.register("typescript-agent");
+
+// 2. Allocate 1MB (returns string UUID)
+const data = Buffer.from("Shared context via Koffi!", "utf-8");
+const ptrId = client.allocate(data.length);
+
+// 3. Write data
+client.write(ptrId, 0, data);
+
+// 4. Read data
+const readBuf = client.read(ptrId, 0, data.length);
+console.log(readBuf.toString('utf-8'));
+
+// 5. Cleanup
+client.free(ptrId);
+```
+
+---
+
+## Architecture & Agent Flow Diagrams
+
+To help visualize how Superbrain replaces traditional gRPC payloads with a fast, distributed shared memory pool, refer to these architecture and interaction maps.
+
+### 1. Multi-Agent Memory Flow (Pub/Sub via Pointers)
+
+Instead of passing massive 10MB context blobs between agents, agents pass lightweight 36-byte pointer UUIDs over a message queue (or agent framework state).
+
+```mermaid
+sequenceDiagram
+    participant Agent1 as Researcher Agent (Go)
+    participant SB as Superbrain Memory Pool
+    participant Queue as Message Bus (Kafka/RabbitMQ/LangChain)
+    participant Agent2 as Strategist Agent (Node.js)
+
+    Agent1->>SB: Allocate(10MB)
+    SB-->>Agent1: returns ptrID (uuid)
+    
+    Agent1->>SB: Write(ptrID, encrypted_data)
+    SB-->>Agent1: success
+    
+    Note over Agent1,Agent2: Avoid passing 10MB contexts directly between agents!
+    
+    Agent1->>Queue: Publish({"task_done": true, "context_ptr": "uuid"})
+    
+    Queue-->>Agent2: Receives lightweight event payload (36 bytes)
+    
+    Agent2->>SB: Read(ptrID)
+    SB-->>Agent2: highly-available stream (10MB)
+    
+    Note over Agent2: Agent 2 decrypts data locally and processes it.
+```
+
+### 2. Phase 2 Secure Fabric Architecture
+
+When E2EE and mTLS are enabled, the Coordinator acts as a Certificate Authority. Data is purely encrypted noise when resting in Memory Nodes.
+
+```mermaid
+graph TD
+    %% Define Styles
+    classDef secret fill:#ffebee,stroke:#c62828,stroke-width:2px,color:black;
+    classDef pool fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:black;
+    classDef auth fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:black;
+
+    A1[Python SDK Agent]:::secret
+    A2[Go SDK Agent]:::secret
+    A3[Node.js SDK Agent]:::secret
+
+    C((Coordinator Leader)):::auth
+    MN1[(Memory Node 1)]:::pool
+    MN2[(Memory Node 2)]:::pool
+    MN3[(Memory Node 3)]:::pool
+
+    subgraph "Secure Fabric Boundary"
+    C
+    MN1
+    MN2
+    MN3
+    end
+
+    A1 -- "1. mTLS Register" --> C
+    A2 -- "1. mTLS Register" --> C
+    
+    C -- "Issues Certs" --> A1
+    C -- "Issues Certs" --> A2
+
+    A1 -- "2. Local AES encrypt -> gRPC Write ()" --> MN1
+    A1 -- "Replication" --> MN2
+    
+    A3 -- "3. Read() -> Local AES decrypt" --> MN1
+
+    Note left of A1: Encryption Keys never <br>leave the Agent boundaries.
+    Note right of MN3: Memory Nodes only <br>store ciphertext noise.
+```
