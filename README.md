@@ -164,6 +164,22 @@ sb_memory = SuperBrainMemory(memory, session_id="user-123")
 chain = ConversationChain(llm=llm, memory=sb_memory)
 ```
 
+### 3. Distributed Semantic Memory (NEW)
+```python
+from superbrain.auto import AutoMemoryController
+from superbrain.integrations.semantic import SemanticMemoryStore
+
+memory = AutoMemoryController()
+store = SemanticMemoryStore(memory, namespace="agent-brain")
+
+# Index knowledge chunks via FAISS
+store.add("The capital of France is Paris.", [0.1, 0.2, ...])
+store.commit() # Persist FAISS index to distributed RAM
+
+# High-performance similarity retrieval
+results = store.search([0.1, 0.21, ...], top_k=5)
+```
+
 ### PyTorch KV-Cache Offloading
 ```python
 from superbrain.integrations.pytorch import enable_distributed_kv_cache
@@ -180,9 +196,10 @@ enable_distributed_kv_cache(fabric, max_local_layers=4)
 | `v0.1.0` | Core Distributed RAM (Allocate/Read/Write/Free) | ✅ Shipped |
 | `v0.1.1` | Secure Fabric (mTLS, E2EE, Multi-language) | ✅ Shipped |
 | `v0.2.0` | **Phase 3: Automated AI Memory Controller** | ✅ Shipped |
-| `v0.2.1` | **Zero-Copy & Coordinator Bypass (Perf Overhaul)** | ✅ **Current** |
-| `v0.3.0` | Raft Replication (Fault-Tolerant, no data loss on node failure) | 🚧 Planned |
-| `v0.4.0` | NVMe Spilling (LRU eviction to disk — "Infinite Memory") | 🚧 Planned |
+| `v0.2.1` | **Zero-Copy & Coordinator Bypass (Perf Overhaul)** | ✅ Shipped |
+| `v0.3.0` | **Semantic Memory (FAISS-Backed Distributed Vectors)** | ✅ **Current** |
+| `v0.4.0` | Raft Replication (Fault-Tolerant High Availability) | 🚧 Planned |
+| `v0.5.0` | NVMe Spilling (LRU eviction to disk — "Infinite Memory") | 🚧 Planned |
 | `v1.0.0` | Production-Grade, Full Observability Suite | 🔭 Vision |
 
 ---

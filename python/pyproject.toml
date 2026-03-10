@@ -4,22 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superbrain-sdk"
-version = "0.2.1"
-authors = [
-  { name="Anispy", email="anispy211@gmail.com" },
-]
-description = "Premium Python SDK for Superbrain Distributed Memory Fabric"
-readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence",
-]
-keywords = ["distributed", "memory", "ai", "agents", "grpc", "kv-cache", "langchain", "pytorch", "llm", "rag", "inference"]
-dependencies = []
+version = "0.3.0"
+...
+dependencies = ["numpy"]
 
 [project.urls]
 "Homepage" = "https://github.com/anispy211/superbrainSdk"
