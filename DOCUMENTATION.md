@@ -1,6 +1,6 @@
-# Superbrain SDK: Comprehensive Consumption Guide
+# Superbrain SDK v0.2.0 — Comprehensive Developer Guide
 
-Welcome to the Superbrain SDK! This guide explains how external developers and AI agents can seamlessly consume the Superbrain distributed memory fabric using our multi-language wrappers.
+Welcome to the Superbrain SDK! This guide covers all APIs across Go, Python, and TypeScript — from the core distributed memory primitives (**v0.1.x**) to the full **Phase 3 Automated AI Memory Controller** (v0.2.0).
 
 ## 🚀 Quick Installation
 
@@ -28,6 +28,8 @@ go get github.com/anispy211/superbrainSdk
 6. [Enterprise mTLS & E2EE](#enterprise-mtls--e2ee)
 7. [Architecture & Agent Flow Diagrams](#architecture--agent-flow-diagrams)
 8. [API Reference (Godoc Style)](#api-reference-godoc-style)
+9. [Phase 3 API Reference](#phase-3-api-reference)
+10. [Roadmap](#roadmap)
 ---
 
 ## Prerequisites
@@ -340,3 +342,99 @@ Releases the distributed memory back to the pool.
     *   `ptr`: The pointer to free.
 *   **Returns**: None on success.
 *   **Errors**: Pointer already freed or not found.
+
+---
+
+## Phase 3 API Reference
+
+### `AutoMemoryController` (superbrain.auto)
+
+Zero-config distributed memory controller with mDNS auto-discovery.
+
+| Method | Description |
+|--------|-------------|
+| `AutoMemoryController(coordinator?, encryption_key?, discovery_timeout?)` | Init — auto-discovers cluster, falls back to `SUPERBRAIN_COORDINATOR` env var |
+| `context(name) → SharedContext` | Get or create a named shared context |
+| `shared_context(name) → decorator` | Decorator factory that injects `SharedContext` as first argument |
+| `store_kv_cache(prefix, size_hint?) → ptr_id` | Store bytes with deduplication — identical bytes return same pointer |
+| `allocate(size) → ptr_id` | Allocate distributed RAM |
+| `write(ptr_id, offset, data)` | Write bytes to distributed segment |
+| `read(ptr_id, offset, length) → bytes` | Read bytes from distributed segment |
+| `free(ptr_id)` | Free distributed segment |
+
+### `DistributedContextFabric` (superbrain.fabric)
+
+Unified production API integrating all Phase 3 subsystems.
+
+| Method | Description |
+|--------|-------------|
+| `DistributedContextFabric(coordinator?, encryption_key?, audit_log?, max_anomaly_z?)` | Initialize all subsystems |
+| `create_context(name) → SharedContext` | Create or fetch a named shared context |
+| `attach_context(name) → SharedContext` | Alias — attach to existing context |
+| `get_user_memory(user_id) → SharedContext` | Get persistent memory for a user ID |
+| `store_kv_cache(prefix_tokens, model?, replication?) → ptr_id` | Store with prefix dedup + cross-model hints |
+| `allocate_and_write(data, agent_id?) → ptr_id` | One-call allocate + write |
+| `stats() → dict` | Full telemetry + KV pool + anomaly report |
+| `print_stats()` | Pretty-print telemetry to stdout |
+
+### `SharedContext` (superbrain.auto)
+
+| Method | Description |
+|--------|-------------|
+| `write(key, data) → ptr_id` | JSON-serialize and store data under key |
+| `read(key, length?) → Any` | Deserialize and return value for key |
+
+### `TelemetryCollector` (superbrain.telemetry)
+
+| Method | Description |
+|--------|-------------|
+| `measure(operation, num_bytes?) → context_manager` | Measure latency of an operation |
+| `record_cache_hit()` | Record a KV cache hit |
+| `record_cache_miss()` | Record a KV cache miss |
+| `report() → dict` | Full telemetry snapshot |
+| `print_report()` | Pretty-print telemetry |
+
+### `AdvancedKVPool` (superbrain.kv_pool)
+
+| Method | Description |
+|--------|-------------|
+| `store(tokens, model_id?, size_hint?) → ptr_id` | Store with prefix-tree dedup and cross-model hints |
+| `retrieve(ptr_id, model_id?) → bytes` | Retrieve (decompresses cold segments transparently) |
+| `usage_report() → dict` | Segment count, compression ratio |
+
+### `AnomalyDetector` (superbrain.security)
+
+| Method | Description |
+|--------|-------------|
+| `observe(agent_id, bytes_accessed, ptr_id?) → alert?` | Record access, return alert dict if anomalous |
+| `alerts → List[dict]` | Last 50 anomaly alerts |
+
+### `SelfTuningAllocator` (superbrain.allocator)
+
+| Method | Description |
+|--------|-------------|
+| `allocate(size) → ptr_id` | Smart allocate with right-sizing + pre-allocation |
+| `free(ptr_id)` | Free and record lifetime |
+| `stats() → dict` | Allocation statistics and prediction info |
+
+### `MonitorServer` (superbrain.monitor)
+
+| Method | Description |
+|--------|-------------|
+| `MonitorServer(fabric, port?)` | Create server (default port 9090) |
+| `start()` | Start in background daemon thread |
+| `stop()` | Shutdown server |
+
+---
+
+## Roadmap
+
+| Version | Milestone | Status |
+|---------|-----------|--------|
+| `v0.1.0` | Core Distributed RAM (Allocate/Read/Write/Free) | ✅ Shipped |
+| `v0.1.1` | Secure Fabric (mTLS, E2EE, Pub/Sub) | ✅ Shipped |
+| `v0.2.0` | **Phase 3: Automated AI Memory Controller** | ✅ **Current** |
+| `v0.3.0` | Raft Replication (no data loss on node failure) | 🚧 Planned |
+| `v0.4.0` | NVMe Spilling ("Infinite Memory" via LRU eviction to disk) | 🚧 Planned |
+| `v0.5.0` | GPUDirect RDMA (zero-copy GPU→Network transfers) | 🔬 Research |
+| `v1.0.0` | Production-Grade stable API + full observability | 🔭 Vision |

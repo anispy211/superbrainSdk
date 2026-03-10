@@ -117,9 +117,74 @@ A simple REST API for non-Go environments.
 - **POST /write**: `{"ptr_id": "...", "offset": 0, "data": "..."}`
 - **GET /read**: `?ptr_id=...&offset=0&length=1024`
 
+---
+
+## 🤖 Phase 3: Automated AI Memory Controller (NEW in v0.2.0)
+
+SuperBrain is no longer just a storage layer — it's an intelligent, self-managing AI context fabric.
+
+### AutoMemoryController (Python)
+```python
+from superbrain import AutoMemoryController
+
+memory = AutoMemoryController()  # Auto-discovers cluster via mDNS
+
+@memory.shared_context("agent-swarm")
+def analyze(ctx, llm, document):
+    ctx.write("findings", llm.analyze(document))
+    return ctx.read("findings")
+```
+
+### DistributedContextFabric (Full Production API)
+```python
+from superbrain import DistributedContextFabric
+from superbrain.monitor import MonitorServer
+
+fabric = DistributedContextFabric(coordinator="localhost:50050")
+MonitorServer(fabric).start()  # Live dashboard: http://localhost:9090
+
+# Share KV cache across all models — stored ONCE, reused everywhere
+ptr = fabric.store_kv_cache(b"System prompt...", model="gpt-4")
+
+# Any agent on any machine reads with microsecond access
+ctx = fabric.create_context("project-alpha")
+ctx.write("result", {"accuracy": 0.97})
+print(fabric.stats())  # Full telemetry report
+```
+
+### LangChain Integration
+```python
+from superbrain.integrations.langchain import SuperBrainMemory
+sb_memory = SuperBrainMemory(memory, session_id="user-123")
+chain = ConversationChain(llm=llm, memory=sb_memory)
+```
+
+### PyTorch KV-Cache Offloading
+```python
+from superbrain.integrations.pytorch import enable_distributed_kv_cache
+enable_distributed_kv_cache(fabric, max_local_layers=4)
+# GPU VRAM full? Pages to cluster RAM instead of crashing.
+```
+
+---
+
+## 🗺️ Roadmap
+
+| Version | Milestone | Status |
+|---------|-----------|--------|
+| `v0.1.0` | Core Distributed RAM (Allocate/Read/Write/Free) | ✅ Shipped |
+| `v0.1.1` | Secure Fabric (mTLS, E2EE, Multi-language) | ✅ Shipped |
+| `v0.2.0` | **Phase 3: Automated AI Memory Controller** | ✅ **Current** |
+| `v0.3.0` | Raft Replication (Fault-Tolerant, no data loss on node failure) | 🚧 Planned |
+| `v0.4.0` | NVMe Spilling (LRU eviction to disk — "Infinite Memory") | 🚧 Planned |
+| `v0.5.0` | GPUDirect RDMA (Zero-copy GPU→Network) | 🔬 Research |
+| `v1.0.0` | Production-Grade, Full Observability Suite | 🔭 Vision |
+
+---
+
 ## Enterprise Solutions
 
-Looking for enterprise-grade distributed memory solutions, dedicated support, or custom integrations? 
+Looking for enterprise-grade distributed memory solutions, dedicated support, or custom integrations?
 
 [**Join the Enterprise Waitlist**](https://binary.so/bC7zobC)
 

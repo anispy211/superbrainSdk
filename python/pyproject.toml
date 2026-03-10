@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superbrain-sdk"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
   { name="Anispy", email="anispy211@gmail.com" },
 ]
@@ -18,7 +18,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-keywords = ["distributed", "memory", "ai", "agents", "grpc"]
+keywords = ["distributed", "memory", "ai", "agents", "grpc", "kv-cache", "langchain", "pytorch", "llm", "rag", "inference"]
 dependencies = []
 
 [project.urls]
@@ -26,4 +26,4 @@ dependencies = []
 "Bug Tracker" = "https://github.com/anispy211/superbrainSdk/issues"
 
 [tool.setuptools]
-packages = ["superbrain"]
+packages = ["superbrain", "superbrain.integrations"]
