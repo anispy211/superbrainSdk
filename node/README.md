@@ -90,22 +90,25 @@ const received = JSON.parse((await clientB.read(ctxPtr, 0, 0)).toString());
 ## 📊 Architecture
 
 ```
-Your LLM App             SuperBrain Cluster
-┌──────────────┐         ┌──────────────────────┐
-│ Node.js SDK  │──gRPC──>│   Coordinator        │
-│              │         │   (Control Plane)     │
-│  allocate()  │         └──────────┬───────────┘
-│  write()     │                    │ pointer map
-│  read()      │         ┌──────────▼───────────┐
-│  free()      │──gRPC──>│   Memory Nodes        │
-└──────────────┘         │   (Data Plane)        │
-                         │   1TB+ pooled RAM     │
-                         └──────────────────────┘
+Your LLM App (SDK)                 SuperBrain Cluster
+┌─────────────────────────┐
+│  allocate(size) ────────┼──(1)──► Coordinator (Control Plane)
+│  free(ptr_id)   ────────┼──(5)──► Maps pointers → node locations
+│                         │                │
+│                         │         (2) pointer map returned
+│                         │                │
+│  write(ptr_id, data) ───┼──(3)──►┌───────▼──────────────┐
+│  read(ptr_id)   ────────┼──(4)──►│   Memory Nodes       │
+└─────────────────────────┘        │   (Data Plane)       │
+                                   │   1TB+ pooled RAM    │
+                                   └──────────────────────┘
+
+CRITICAL: write() and read() bypass the Coordinator entirely.
+They stream directly to the Memory Nodes over gRPC for maximum throughput (~100 MB/s).
+The Coordinator is ONLY in the control path (allocate + free).
 ```
 
-**Control plane** (Coordinator): Routes allocation requests, maintains node registry.  
-**Data plane** (Memory Nodes): Direct gRPC streams for maximum throughput.  
-**Client**: Talks to nodes directly after allocation — Coordinator is never in the hot path.
+**Why this matters**: The Coordinator never becomes a bottleneck for your data. 1000 agents can read/write simultaneously to different nodes without fighting for the same control plane.
 
 ---
 
