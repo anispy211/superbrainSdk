@@ -159,7 +159,7 @@ class SemanticMemoryStore:
         """
         High-performance similarity search using FAISS.
         """
-        if not self._records or not self._index:
+        if not self._index:
             return []
 
         if isinstance(query_embedding, list):
@@ -174,7 +174,7 @@ class SemanticMemoryStore:
         
         results = []
         for i, idx in enumerate(indices[0]):
-            if idx == -1: continue
+            if idx == -1 or idx >= len(self._records): continue
             results.append((self._records[idx], float(scores[0][i])))
             
         return results
@@ -187,9 +187,54 @@ class SemanticMemoryStore:
         if not self._index:
             raise RuntimeError("Index not initialized or FAISS missing.")
             
+        # Store records manifest as well
+        manifest = [
+            {"text": r.text, "meta": r.metadata, "ptr": r.ptr_id}
+            for r in self._records
+        ]
+        manifest_data = json.dumps(manifest).encode("utf-8")
+        manifest_ptr = self._ctrl.allocate(len(manifest_data))
+        self._ctrl.write(manifest_ptr, 0, manifest_data)
+
+        # Store Index
         self._index_ptr = self._sb_index.push(self._index)
-        logger.info("[SemanticStore] Index committed to distributed fabric: %s", self._index_ptr[:8])
-        return self._index_ptr
+        
+        # Create a "Root Bundle" (Index Ptr + Manifest Ptr)
+        bundle = json.dumps({
+            "index_ptr": self._index_ptr,
+            "manifest_ptr": manifest_ptr,
+            "dim": self._dimension
+        }).encode("utf-8")
+        
+        root_ptr = self._ctrl.allocate(len(bundle))
+        self._ctrl.write(root_ptr, 0, bundle)
+        
+        logger.info("[SemanticStore] Core Bundle committed: %s", root_ptr[:8])
+        return root_ptr
+
+    def load(self, root_ptr: str):
+        """
+        Re-attach and synchronize with a distributed index from its root pointer.
+        """
+        bundle_data = self._ctrl.read(root_ptr, 0, 0)
+        bundle = json.loads(bundle_data.decode("utf-8"))
+        
+        self._dimension = bundle["dim"]
+        
+        # 1. Pull Index
+        self._index = self._sb_index.pull(bundle["index_ptr"])
+        self._index_ptr = bundle["index_ptr"]
+        
+        # 2. Pull Manifest/Records
+        manifest_data = self._ctrl.read(bundle["manifest_ptr"], 0, 0)
+        manifest = json.loads(manifest_data.decode("utf-8"))
+        
+        self._records = [
+            SemanticRecord(text=r["text"], metadata=r["meta"], ptr_id=r["ptr"])
+            for r in manifest
+        ]
+        
+        logger.info("[SemanticStore] Successfully loaded '%s' (records=%d)", self._namespace, len(self._records))
 
     def clear(self):
         """Free all distributed resources."""

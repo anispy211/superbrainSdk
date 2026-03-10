@@ -6,7 +6,10 @@ build-backend = "setuptools.build_meta"
 name = "superbrain-sdk"
 version = "0.3.0"
 ...
-dependencies = ["numpy"]
+dependencies = ["numpy", "faiss-cpu"]
+
+[project.optional-dependencies]
+semantic = ["sentence-transformers"]
 
 [project.urls]
 "Homepage" = "https://github.com/anispy211/superbrainSdk"
