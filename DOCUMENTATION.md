@@ -99,10 +99,8 @@ func main() {
 The Python SDK uses `ctypes` to bridge directly to the shared library, offering native performance without external dependencies.
 
 ### Installation
-Currently, the Python SDK is distributed as a source package within the repository.
 ```bash
-cd superbrainSdk/python
-pip install -e .
+pip install superbrain-sdk
 ```
 
 ### Basic Example
@@ -177,31 +175,31 @@ The TypeScript wrapper uses `koffi` (a fast, modern FFI module for Node.js) to i
 
 ### Installation
 ```bash
-cd superbrainSdk/node
-npm install
+npm install superbrain-distributed-sdk
 ```
 
 ### Basic Example
 ```typescript
-import { Client } from './index';
+import { SuperbrainClient } from 'superbrain-distributed-sdk';
 
 // 1. Initialize Client
-const client = new Client('localhost:50050');
-client.register("typescript-agent");
+const client = new SuperbrainClient('localhost:50050');
+await client.register('typescript-agent');
 
-// 2. Allocate 1MB (returns string UUID)
-const data = Buffer.from("Shared context via Koffi!", "utf-8");
-const ptrId = client.allocate(data.length);
+// 2. Allocate 1MB and write data
+const data = Buffer.from('Shared context from Node.js!', 'utf-8');
+const ptrId = await client.allocate(data.length);
 
-// 3. Write data
-client.write(ptrId, 0, data);
+// 3. Write data (goes directly to Memory Nodes — bypasses Coordinator)
+await client.write(ptrId, 0, data);
 
-// 4. Read data
-const readBuf = client.read(ptrId, 0, data.length);
+// 4. Read data (also direct to Memory Nodes)
+const readBuf = await client.read(ptrId, 0, data.length);
 console.log(readBuf.toString('utf-8'));
 
 // 5. Cleanup
-client.free(ptrId);
+await client.free(ptrId);
+client.close();
 ```
 
 ---
