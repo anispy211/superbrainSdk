@@ -1,8 +1,8 @@
-# 🧠 superbrain-distributed-sdk v0.7.4 — TypeScript/Node.js
+# 🧠 superbrain-distributed-sdk v0.7.6 — TypeScript/Node.js
 
 [![npm version](https://badge.fury.io/js/superbrain-distributed-sdk.svg)](https://badge.fury.io/js/superbrain-distributed-sdk)
 [![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/anispy211/superbrainSDKDemo)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/anispy211/superbrainSdk/blob/main/LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org)
 
 > **The Distributed RAM Fabric for AI Agents** — Share terabytes of context across your LLM cluster at microsecond speeds using 36-byte UUID pointers.

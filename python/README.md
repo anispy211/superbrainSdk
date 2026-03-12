@@ -1,7 +1,7 @@
-# 🧠 superbrain-sdk v0.7.4 — Python
+# 🧠 superbrain-sdk v0.7.6 — Python
 
 [![PyPI version](https://badge.fury.io/py/superbrain-sdk.svg)](https://badge.fury.io/py/superbrain-sdk)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/anispy211/superbrainSdk/blob/main/LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/anispy211/superbrainSDKDemo)
 

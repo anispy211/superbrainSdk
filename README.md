@@ -6,7 +6,7 @@ The high-performance distributed memory fabric for AI agents.
 
 📺 **[Watch the Video Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)** | 🚀 **[Explore the SDK Demo Repo](https://github.com/anispy211/superbrainSDKDemo)** | 🕸️ **[Live Visual Dashboard](https://github.com/anispy211/superbrainSDKDemo#dashboard)**
 
-### ⚡ Performance Overhaul (v0.7.4)
+### ⚡ Performance Overhaul (v0.7.6)
 - **Coordinator Bypass**: 10x faster metadata resolution via SDK-side caching.
 - **Zero-Copy Transport**: Direct memory access via `mmap` for local agents.
 - **Viral @shared_context**: Hyper-convenient CrewAI context sharing.
@@ -22,7 +22,7 @@ The high-performance distributed memory fabric for AI agents.
 
 ---
 
-## 🚀 The 10-Line Viral Integration (CrewAI)
+## 🚀 Integration code sample for CrewAI
 Stop passing huge prompt strings over the network. Use the SuperBrain **Shared Context** decorator to sync state across your swarm instantly.
 
 ```python
@@ -67,9 +67,9 @@ Enrolls the agent in the **Secure Fabric** via mTLS. Automatically generates a k
 |---------|-----------|--------|
 | `v0.7.0` | **Tiered Architecture (L1 Shared Memory) & SHM Locality Bypass** | ✅ Shipped |
 | `v0.7.3` | **SDK Demo Repo Integration** | ✅ Shipped |
-| `v0.7.4` | **Viral @shared_context & Metadata Polish** | ✅ **Current** |
-| `v0.8.0` | Raft Consensus Replication | ✅ Shipped |
-| `v0.9.0` | NVMe Spilling | ✅ Shipped |
+| `v0.7.4` | **Viral @shared_context & Metadata Polish** | ✅ Shipped |
+| `v0.7.5` | **BSL 1.1 Licensing & Final Sync** | ✅ Shipped |
+| `v0.7.6` | **README Polish & CrewAI sample** | ✅ **Current** |
 
 ---
 
