@@ -1,4 +1,4 @@
-# Superbrain SDK v0.7.6 — Comprehensive Developer Guide
+# Superbrain SDK v0.7.7 — Comprehensive Developer Guide
 
 Welcome to the Superbrain SDK! This guide covers all APIs across Go, Python, and TypeScript — from the core distributed memory primitives (**v0.1.x**) to the **Tiered Architecture and Zero-Copy SHM bypass** introduced in v0.7.0.
 

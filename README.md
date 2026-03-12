@@ -6,7 +6,7 @@ The high-performance distributed memory fabric for AI agents.
 
 📺 **[Watch the Video Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)** | 🚀 **[Explore the SDK Demo Repo](https://github.com/anispy211/superbrainSDKDemo)** | 🕸️ **[Live Visual Dashboard](https://github.com/anispy211/superbrainSDKDemo#dashboard)**
 
-### ⚡ Performance Overhaul (v0.7.6)
+### ⚡ Performance Overhaul (v0.7.7)
 - **Coordinator Bypass**: 10x faster metadata resolution via SDK-side caching.
 - **Zero-Copy Transport**: Direct memory access via `mmap` for local agents.
 - **Viral @shared_context**: Hyper-convenient CrewAI context sharing.
@@ -69,7 +69,8 @@ Enrolls the agent in the **Secure Fabric** via mTLS. Automatically generates a k
 | `v0.7.3` | **SDK Demo Repo Integration** | ✅ Shipped |
 | `v0.7.4` | **Viral @shared_context & Metadata Polish** | ✅ Shipped |
 | `v0.7.5` | **BSL 1.1 Licensing & Final Sync** | ✅ Shipped |
-| `v0.7.6` | **README Polish & CrewAI sample** | ✅ **Current** |
+| `v0.7.6` | **README Polish & CrewAI sample** | ✅ Shipped |
+| `v0.7.7` | **Anonymous Usage Analytics** | ✅ **Current** |
 
 ---
 
