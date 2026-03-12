@@ -4,7 +4,7 @@ The high-performance distributed memory fabric for AI agents.
 
 🔥 **[Join the Enterprise Waitlist](https://binary.so/bC7zobC)** for managed fleets, GPUDirect RDMA access, and dedicated support. 
 
-📺 **[Watch the Video Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)** | 🚀 **[Explore the SDK Demo Repo](https://github.com/anispy211/superbrainSDKDemo)** | 🕸️ **[Live Visual Dashboard](https://github.com/anispy211/superbrainSDKDemo#dashboard)**
+📺 **[Watch the Video Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)** | 🚀 **[Explore the SDK Demo Repo](https://github.com/golightstep/superbrainSDKDemo)** | 🕸️ **[Live Visual Dashboard](https://github.com/golightstep/superbrainSDKDemo#dashboard)**
 
 ### ⚡ Performance Overhaul (v0.7.7)
 - **Coordinator Bypass**: 10x faster metadata resolution via SDK-side caching.
@@ -18,7 +18,7 @@ The high-performance distributed memory fabric for AI agents.
 - **Node.js**: [`superbrain-distributed-sdk`](https://www.npmjs.com/package/superbrain-distributed-sdk)
   - `npm install superbrain-distributed-sdk`
   - [Node.js README](./node/README.md)
-- **Go**: `go get github.com/anispy211/superbrainSdk`
+- **Go**: `go get github.com/golightstep/superbrainSdk`
 
 ---
 
@@ -38,7 +38,7 @@ def create_research_task(ctx, researcher):
 ## 🕸️ SDK Visual Showcase
 The SuperBrain dashboard provides real-time visualization of your **Secure Fabric**, tracking E2EE metrics and mTLS enrollment. 
 
-**[View the Live Dashboard Screenshots](https://github.com/anispy211/superbrainSDKDemo#visuals)**
+**[View the Live Dashboard Screenshots](https://github.com/golightstep/superbrainSDKDemo#visuals)**
 
 To run the dashboard locally:
 ```bash
