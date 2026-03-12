@@ -6,7 +6,7 @@ The high-performance distributed memory fabric for AI agents.
 
 📺 **[Watch the SuperBrain SDK Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)**
 
-### ⚡ Performance Overhaul (v0.2.1)
+### ⚡ Performance Overhaul (v0.7.1)
 - **Coordinator Bypass**: 10x faster metadata resolution via SDK-side caching.
 - **Zero-Copy Transport**: Direct memory access via `mmap` for local agents.
 - **Microsecond Latency**: Near-hardware speed for co-located workloads.
@@ -229,7 +229,8 @@ l1_stream.push(b"AAPL 150.00") # Uses direct memory-mapped I/O if local
 | `v0.4.0` | Gossip & P2P Membership | ✅ Shipped |
 | `v0.5.0` | High Availability & Partition Tolerance | ✅ Shipped |
 | `v0.6.0` | Decentralized Observability & Metrics | ✅ Shipped |
-| `v0.7.0` | **Tiered Architecture (L1 Shared Memory) & SHM Locality Bypass** | ✅ **Current** |
+| `v0.7.0` | **Tiered Architecture (L1 Shared Memory) & SHM Locality Bypass** | ✅ Shipped |
+| `v0.7.1` | **Maintenance Release: Documentation Sync & FFI Optimization Fixes** | ✅ **Current** |
 | `v0.8.0` | Raft Consensus Replication | ✅ Shipped |
 | `v0.9.0` | NVMe Spilling | ✅ Shipped |
 

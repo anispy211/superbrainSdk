@@ -1,4 +1,4 @@
-# 🧠 superbrain-sdk v0.3.1 — Python
+# 🧠 superbrain-sdk v0.7.1 — Python
 
 [![PyPI version](https://badge.fury.io/py/superbrain-sdk.svg)](https://badge.fury.io/py/superbrain-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -28,18 +28,29 @@ pip install superbrain-sdk
 
 ---
 
-## ✨ New in v0.3.1 — Distributed Semantic Memory (FAISS)
+## ✨ New in v0.7.1 — Tiered Architecture & Zero-Copy SHM
+SuperBrain now operates as an ultra-fast **L1 Shared Memory Tier** for agent architectures. 
 
-SuperBrain now includes a production-ready, FAISS-backed **Semantic MemoryStore** that acts as a zero-network vector database.
+- **Coordinator Bypass**: Metadata is cached locally, eliminating the gRPC hop to the Coordinator for established pointers.
+- **Zero-Copy SHM**: When the SDK detects a co-located Memory Node (`127.0.0.1`), it seamlessly switches from gRPC streaming to direct `/dev/shm` memory-mapped file access.
+- **13.5µs Native Latency**: The Native Go core bypass achieves microsecond speed, while the Python SDK currently hits `~9ms` due to CGo/ctypes FFI overhead.
 
-### The Problem with Traditional Vector DBs (Pinecone, Milvus, Redis)
-Standard Vector DBs force your LLM agent to make network calls over HTTP/gRPC for *every single search*. This adds 50ms+ of overhead per query. 
+```python
+# L1 Shared Memory via Circular Buffer
+from superbrain.kv_pool import CircularBuffer
 
-### The SuperBrain Advantage: Zero-Copy Vector Search
+# Pre-allocated allocation-free Ring Buffer for ultra-fast Market Data ingestion
+l1_stream = CircularBuffer(fabric, size=1024 * 1024)
+l1_stream.push(b"AAPL 150.00") # Uses direct memory-mapped I/O if local
+```
+
+---
+
+## ✨ Distributed Semantic Memory (v0.3.1 Features)
+SuperBrain includes a production-ready, FAISS-backed **Semantic MemoryStore** that acts as a zero-network vector database.
 Instead of querying a remote database, SuperBrain pulls the entire FAISS index directly into your agent's local RAM instantly via the distributed fabric. 
-- **59μs Local Search**: Once loaded, vector searches bypass the network entirely, running at microsecond speeds.
-- **Microsecond Memory Inheritance**: Agents can 'inherit' the exact state of another agent's memory in `~6ms` by simply reading its distributed root pointer.
-- **Infinite RAM Spooling**: Your semantic memory is bounded only by the combined RAM of all nodes in your fabric.
+- **59μs Local Search**: Once loaded, vector searches bypass the network entirely.
+- **Microsecond Memory Inheritance**: Agents can 'inherit' the exact state of another agent's memory in `~6ms`.
 
 ```python
 from superbrain.integrations.semantic import SemanticMemoryStore
@@ -228,10 +239,13 @@ ptr = fabric.store_kv_cache(b"System prompt", model="gpt-4")
 | `v0.1.0` | Core Distributed RAM (Allocate/Read/Write/Free) | ✅ Shipped |
 | `v0.1.1` | Secure Fabric (mTLS, E2EE, Pub/Sub) | ✅ Shipped |
 | `v0.2.0` | Phase 3: Automated AI Memory Controller | ✅ Shipped |
-| `v0.3.0` | **Distributed Semantic Memory (FAISS Backend)** | ✅ **Current** |
-| `v0.4.0` | Raft Replication (Fault-Tolerant Memory) | 🚧 Planned |
-| `v0.5.0` | NVMe Spilling ("Infinite Memory") | 🚧 Planned |
-| `v0.5.0` | GPUDirect RDMA (Zero-Copy GPU→Network) | 🔬 Research |
+| `v0.3.1` | Semantic Memory (FAISS-Backed Distributed Vectors) | ✅ Shipped |
+| `v0.4.0` | Gossip & P2P Membership | ✅ Shipped |
+| `v0.5.0` | High Availability & Partition Tolerance | ✅ Shipped |
+| `v0.6.0` | Decentralized Observability & Metrics | ✅ Shipped |
+| `v0.7.1` | **Tiered Architecture (L1 Shared Memory) & SHM Locality Bypass** | ✅ **Current** |
+| `v0.8.0` | Raft Consensus Replication | ✅ Shipped |
+| `v0.9.0` | NVMe Spilling | ✅ Shipped |
 
 ---
 

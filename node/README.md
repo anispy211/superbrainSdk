@@ -1,4 +1,4 @@
-# 🧠 superbrain-distributed-sdk v0.2.0 — TypeScript/Node.js
+# 🧠 superbrain-distributed-sdk v0.7.1 — TypeScript/Node.js
 
 [![npm version](https://badge.fury.io/js/superbrain-distributed-sdk.svg)](https://badge.fury.io/js/superbrain-distributed-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -16,17 +16,12 @@ npm install superbrain-distributed-sdk
 
 ---
 
-## ✨ New in v0.2.0 — Phase 3: Automated AI Memory Controller
+## ✨ New in v0.7.1 — Tiered Architecture & Zero-Copy SHM
+Version 0.7.1 introduces the ability to operate as a microsecond-latency **L1 Shared Memory Tier** for agent architectures.
 
-Version 0.2.0 introduces the Phase 3 **Automated AI Memory Controller** — a self-managing, intelligent memory fabric where multiple LLMs running on different machines share context instantly at RAM speed.
-
-### Key Phase 3 Features:
-- **Auto-Discovery**: Zero-config cluster formation via mDNS
-- **KV Cache Pooling**: Identical prefixes shared across models automatically
-- **Smart Prefetching**: Markov-chain access pattern prediction
-- **Self-Tuning Allocator**: Learns from access history to pre-allocate
-- **Anomaly Detection**: Z-score alerting for unusual access patterns
-- **Live Dashboard**: Real-time metrics at `http://localhost:9090`
+- **Coordinator Bypass**: Metadata is cached locally, eliminating the gRPC hop to the Coordinator for established pointers.
+- **Zero-Copy SHM**: When the SDK detects a co-located Memory Node (`127.0.0.1`), it seamlessly switches from gRPC streaming to direct `/dev/shm` memory-mapped file access.
+- **13.5µs Native Latency**: The Native Go core bypass achieves microsecond speed, bypassing the network entirely for local agents.
 
 ---
 
@@ -169,10 +164,14 @@ ctx.read("state")                  # read from any machine
 |---------|-----------|--------|
 | `v0.1.0` | Core Distributed RAM | ✅ Shipped |
 | `v0.1.1` | Secure Fabric (mTLS + E2EE) | ✅ Shipped |
-| `v0.2.0` | **Phase 3: Automated AI Memory Controller** | ✅ **Current** |
-| `v0.3.0` | Raft Replication (Fault-Tolerant Memory) | 🚧 Planned |
-| `v0.4.0` | NVMe Spilling ("Infinite Memory") | 🚧 Planned |
-| `v0.5.0` | GPUDirect RDMA (GPU→Network zero-copy) | 🔬 Research |
+| `v0.2.0` | **Phase 3: Automated AI Memory Controller** | ✅ Shipped |
+| `v0.3.1` | Semantic Memory (FAISS-Backed Distributed Vectors) | ✅ Shipped |
+| `v0.4.0` | Gossip & P2P Membership | ✅ Shipped |
+| `v0.5.0` | High Availability & Partition Tolerance | ✅ Shipped |
+| `v0.6.0` | Decentralized Observability & Metrics | ✅ Shipped |
+| `v0.7.1` | **Tiered Architecture & Zero-Copy SHM Bypass** | ✅ **Current** |
+| `v0.8.0` | Raft Consensus Replication | ✅ Shipped |
+| `v0.9.0` | NVMe Spilling | ✅ Shipped |
 
 ---
 
