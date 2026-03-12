@@ -14,7 +14,12 @@ superbrain/telemetry.py
 superbrain/integrations/__init__.py
 superbrain/integrations/langchain.py
 superbrain/integrations/pytorch.py
+superbrain/integrations/ros2.py
+superbrain/integrations/semantic.py
+superbrain/lib/libsuperbrain.dylib
+superbrain/lib/libsuperbrain.so
 superbrain_sdk.egg-info/PKG-INFO
 superbrain_sdk.egg-info/SOURCES.txt
 superbrain_sdk.egg-info/dependency_links.txt
+superbrain_sdk.egg-info/requires.txt
 superbrain_sdk.egg-info/top_level.txt

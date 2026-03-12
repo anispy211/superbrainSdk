@@ -4,8 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "superbrain-sdk"
-version = "0.3.0"
-...
+version = "0.7.2"
+description = "High-performance distributed memory fabric for AI agents."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["distributed-systems", "shared-memory", "ai-agents", "performance", "memory-fabric"]
+authors = [{name = "anispy211", email = "anispy211@gmail.com"}]
 dependencies = ["numpy", "faiss-cpu"]
 
 [project.optional-dependencies]

@@ -6,7 +6,7 @@ The high-performance distributed memory fabric for AI agents.
 
 📺 **[Watch the SuperBrain SDK Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)**
 
-### ⚡ Performance Overhaul (v0.7.1)
+### ⚡ Performance Overhaul (v0.7.2)
 - **Coordinator Bypass**: 10x faster metadata resolution via SDK-side caching.
 - **Zero-Copy Transport**: Direct memory access via `mmap` for local agents.
 - **Microsecond Latency**: Near-hardware speed for co-located workloads.

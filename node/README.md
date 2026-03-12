@@ -1,4 +1,4 @@
-# 🧠 superbrain-distributed-sdk v0.7.1 — TypeScript/Node.js
+# 🧠 superbrain-distributed-sdk v0.7.2 — TypeScript/Node.js
 
 [![npm version](https://badge.fury.io/js/superbrain-distributed-sdk.svg)](https://badge.fury.io/js/superbrain-distributed-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
