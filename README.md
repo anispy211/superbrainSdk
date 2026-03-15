@@ -12,6 +12,13 @@ SuperBrain is a next-generation **Active Memory & Cognitive Architecture** for A
 - **The Consistency Guard**: Semantic locking to prevent logical race conditions.
 - **The Forgetter**: Built-in decay and eviction for efficient memory lifecycle.
 
+📺 **[Watch the Video Demo](https://www.youtube.com/watch?v=TzNxpk5PSXM)** | 🚀 **[Explore the SDK Demo Repo](https://github.com/golightstep/superbrainSDKDemo)** | 🕸️ **[Live Visual Dashboard](https://github.com/golightstep/superbrainSDKDemo#dashboard)**
+
+**Checkout Demo App:**
+https://github.com/golightstep/superbrainSDKDemo
+1. CrewAI + Superbrain
+2. Redis + Superbrain
+
 ### 📦 Installation
 - **Python**: `pip install superbrain-sdk`
 - **Node.js**: `npm install superbrain-distributed-sdk`
@@ -44,7 +51,7 @@ def create_research_task(ctx, researcher):
 ## 🕸️ SDK Visual Showcase
 The SuperBrain dashboard provides real-time visualization of your **Secure Fabric**, tracking E2EE metrics and mTLS enrollment. 
 
-**[View the Live Dashboard Screenshots](https://github.com/anispy211/superbrainSDKDemo#visuals)**
+**[View the Live Dashboard Screenshots](https://github.com/golightstep/superbrainSDKDemo#visuals)**
 
 To run the dashboard locally:
 ```bash
