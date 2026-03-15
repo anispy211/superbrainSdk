@@ -1,9 +1,11 @@
-# 🧠 superbrain-sdk v0.7.6 — Python
+# 🧠 superbrain-sdk v3.0.1 — Python
 
 [![PyPI version](https://badge.fury.io/py/superbrain-sdk.svg)](https://badge.fury.io/py/superbrain-sdk)
-[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/anispy211/superbrainSdk/blob/main/LICENSE)
+[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/golightstep/superbrainSdk/blob/main/LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/anispy211/superbrainSDKDemo)
+[![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/golightstep/superbrainSDKDemo)
+
+🔥 **v3.0.0-cognitive: The Intelligence Update** is now live!
 
 SuperBrain is a high-performance distributed memory fabric that allows multiple AI agents to share state and context at microsecond latencies.
 

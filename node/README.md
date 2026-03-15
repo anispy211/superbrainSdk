@@ -1,13 +1,15 @@
-# 🧠 superbrain-distributed-sdk v0.7.6 — TypeScript/Node.js
+# 🧠 superbrain-distributed-sdk v3.0.1-cognitive — TypeScript/Node.js
 
 [![npm version](https://badge.fury.io/js/superbrain-distributed-sdk.svg)](https://badge.fury.io/js/superbrain-distributed-sdk)
-[![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/anispy211/superbrainSDKDemo)
-[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/anispy211/superbrainSdk/blob/main/LICENSE)
+[![Demo Code](https://img.shields.io/badge/Demo-Code-blue.svg)](https://github.com/golightstep/superbrainSDKDemo)
+[![License: BSL 1.1](https://img.shields.io/badge/License-BSL%201.1-blue.svg)](https://github.com/golightstep/superbrainSdk/blob/main/LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)](https://nodejs.org)
 
 > **The Distributed RAM Fabric for AI Agents** — Share terabytes of context across your LLM cluster at microsecond speeds using 36-byte UUID pointers.
 
 ---
+
+🔥 **v3.0.0-cognitive: The Intelligence Update** is now live!
 
 ## 📦 Installation
 
@@ -17,8 +19,8 @@ npm install superbrain-distributed-sdk
 
 ---
 
-## ✨ New in v0.7.1 — Tiered Architecture & Zero-Copy SHM
-Version 0.7.1 introduces the ability to operate as a microsecond-latency **L1 Shared Memory Tier** for agent architectures.
+## 🚀 New in v3.0.0-cognitive — Active Memory & Coordinator Bypass
+Version 3.0.0 introduces the ability to operate as a microsecond-latency **Active Memory Tier** for agent architectures.
 
 - **Coordinator Bypass**: Metadata is cached locally, eliminating the gRPC hop to the Coordinator for established pointers.
 - **Zero-Copy SHM**: When the SDK detects a co-located Memory Node (`127.0.0.1`), it seamlessly switches from gRPC streaming to direct `/dev/shm` memory-mapped file access.
