@@ -1,18 +1,18 @@
-# Superbrain SDK v3.0.0-cognitive — Comprehensive Developer Guide
+# Superbrain SDK v5.1.0 — The Soul Expansion — Comprehensive Developer Guide
 
-Welcome to the Superbrain SDK! This guide covers all APIs across Go, Python, and TypeScript — from the core distributed memory primitives to the **Active Cognitive Architecture** introduced in the v3.0.0 release.
+Welcome to the Superbrain SDK! This guide covers all APIs across Go, Python, and TypeScript — from the core distributed memory primitives to the **Active Cognitive Architecture** introduced in the v5.1.0 release.
 
 ## 🚀 Quick Installation
 - **Demo Code Repository**: [anispy211/superbrainSDKDemo](https://github.com/anispy211/superbrainSDKDemo)
 
 ### Python
 ```bash
-pip install superbrain-sdk
+pip install superbrain-fabric-sdk
 ```
 
 ### Node.js (TypeScript/JavaScript)
 ```bash
-npm install superbrain-distributed-sdk
+npm install superbrain-fabric-sdk
 ```
 
 ### Go
@@ -111,7 +111,7 @@ You write and read by **key name** — no pointers, no free calls.
 
 **Step 1 — Install and initialize:**
 ```bash
-pip install superbrain-sdk
+pip install superbrain-fabric-sdk
 ```
 ```python
 from superbrain import AutoMemoryController
@@ -332,7 +332,7 @@ The Python SDK uses `ctypes` to bridge directly to the shared library, offering 
 
 ### Installation
 ```bash
-pip install superbrain-sdk
+pip install superbrain-fabric-sdk
 ```
 
 ### Basic Example
@@ -407,12 +407,12 @@ The TypeScript wrapper uses `koffi` (a fast, modern FFI module for Node.js) to i
 
 ### Installation
 ```bash
-npm install superbrain-distributed-sdk
+npm install superbrain-fabric-sdk
 ```
 
 ### Basic Example
 ```typescript
-import { SuperbrainClient } from 'superbrain-distributed-sdk';
+import { SuperbrainClient } from 'superbrain-fabric-sdk';
 
 // 1. Initialize Client
 const client = new SuperbrainClient('localhost:50050');
